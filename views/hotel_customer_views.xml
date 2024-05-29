@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<odoo><data>
+
+    <record id="hotel_customer_form_view" model="ir.ui.view">
+        <field name="name">hotel.customer.form.view</field>
+        <field name="model">hotel.customer</field>
+        <field name="arch" type="xml">
+            <form string="Customer">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Number"/>
+                        <h1><field class="text-break" name="name" placeholder="e.g. Nguyen Van Manh"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="email" options="{'no_create':True}"/>
+                            <field name="phone" class="o_force_ltr"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_customer_tree_view" model="ir.ui.view">
+        <field name="name">hotel.customer.tree.view</field>
+        <field name="model">hotel.customer</field>
+        <field name="arch" type="xml">
+            <tree string="Customers" multi_edit="1">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hotel_customer_search_view" model="ir.ui.view">
+        <field name="name">hotel.customer.search.view</field>
+        <field name="model">hotel.customer</field>
+        <field name="arch" type="xml">
+            <search string="Customers">
+                <field name="name" string="Customer Name"/>
+                <field name="email"/>
+                <field name="phone"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hotel_customer_view" model="ir.actions.act_window">
+       <field name="name">Customers</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">hotel.customer</field>
+       <field name="view_mode">tree,form</field>
+       <field name="search_view_id" ref="hotel_customer_search_view"/>
+       <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create an Hotel customer
+          </p><p>
+            Schedule and organize your customers: handle registrations.
+          </p>
+        </field>
+    </record>
+
+    <record id="hotel_management.menu_hotel_customer" model="ir.ui.menu">
+        <field name="action" ref="hotel_management.action_hotel_customer_view"/>
+    </record>
+
+</data></odoo>

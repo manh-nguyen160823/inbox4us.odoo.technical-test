@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo><data>
+
+    <!-- MAIN MENU -->
+    <menuitem name="Hotel Rooms"
+        id="hotel_main_menu"
+        sequence="100"
+        groups="hotel_management.group_hotel_registration_desk"
+        web_icon="hotel_management,static/description/icon.png"/>
+
+    <!-- HEADER: HOTEL ROOMS -->
+    <menuitem name="Hotel Rooms"
+        id="menu_hotel_room"
+        sequence="10"
+        groups="hotel_management.group_hotel_registration_desk"
+        parent="hotel_main_menu"/>
+
+    <!-- HEADER: BOOKINGS -->
+    <menuitem name="Bookings"
+        id="menu_hotel_booking"
+        sequence="20"
+        groups="hotel_management.group_hotel_registration_desk"
+        parent="hotel_main_menu"/>
+
+    <!-- HEADER: CUSTOMERS -->
+    <menuitem name="Customers"
+        id="menu_hotel_customer"
+        sequence="30"
+        groups="hotel_management.group_hotel_registration_desk"
+        parent="hotel_main_menu"/>
+
+</data></odoo>

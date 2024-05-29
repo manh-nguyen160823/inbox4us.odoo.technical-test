@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_category_hotels">
+            <field name="description">Helps you manage your Hotels.</field>
+            <field name="name">Hotel Rooms</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="group_hotel_registration_desk" model="res.groups">
+            <field name="name">Registration Desk</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="module_category_hotels"/>
+        </record>
+
+        <record id="group_hotel_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="implied_ids" eval="[(4, ref('group_hotel_registration_desk'))]"/>
+            <field name="category_id" ref="module_category_hotels"/>
+        </record>
+
+        <record id="group_hotel_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="module_category_hotels"/>
+            <field name="implied_ids" eval="[(4, ref('group_hotel_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4,ref('hotel_management.group_hotel_manager'))]"/>
+        </record>
+    </data>
+</odoo>

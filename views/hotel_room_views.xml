@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<odoo><data>
+
+    <record id="hotel_room_form_view" model="ir.ui.view">
+        <field name="name">hotel.room.form.view</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <form string="Hotel Room">
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Room Number"/>
+                        <h1><field class="text-break" name="name" placeholder="e.g. A101"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="room_type" options="{'no_create':True}"/>
+                            <field name="price_per_night"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_room_tree_view" model="ir.ui.view">
+        <field name="name">hotel.room.tree.view</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <tree string="Hotel Rooms" multi_edit="1">
+                <field name="name"/>
+                <field name="room_type" options="{'color_field': 'color'}"/>
+                <field name="price_per_night" sum="Total" readonly="1"/>
+                <field name="status" widget="badge" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hotel_room_search_view" model="ir.ui.view">
+        <field name="name">hotel.room.search.view</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <search string="Rooms">
+                <field name="name" string="Room Number"/>
+                <field name="room_type"/>
+                <field name="status"/>
+                <separator/>
+                <filter invisible="1" string="Available" name="status"
+                    domain="[('status', '=', 'available')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="status" context="{'group_by': 'status'}"/>
+                    <filter string="Room Type" name="room_type" domain="[]" context="{'group_by': 'room_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hotel_room_view" model="ir.actions.act_window">
+       <field name="name">Rooms</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">hotel.room</field>
+       <field name="view_mode">tree,form</field>
+       <field name="search_view_id" ref="hotel_room_search_view"/>
+       <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create an Hotel Room
+          </p><p>
+            Schedule and organize your rooms: handle registrations.
+          </p>
+        </field>
+    </record>
+
+    <record id="hotel_management.menu_hotel_room" model="ir.ui.menu">
+        <field name="action" ref="hotel_management.action_hotel_room_view"/>
+    </record>
+
+
+</data></odoo>
