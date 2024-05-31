@@ -3,9 +3,12 @@
     'version': '1.0',
     'category': 'Hotel Management',
     'summary': 'Manage hotel room bookings and customers',
-    'depends': ['base'],
+    'depends': ['base', 'auth_signup'],
     'installable': True,
     'application': True,
+    'external_dependencies': {
+        'python': ['jwt'],
+    },
     'data': [
         'security/hotel_security.xml',
         'security/ir.model.access.csv',
