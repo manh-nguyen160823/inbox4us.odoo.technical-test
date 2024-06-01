@@ -1,25 +1,20 @@
 ## Inbox4us - Technical Test Requirements for Odoo Hotel Booking Module
 ### Overview
-The candidate is required to complete a custom Odoo module for managing hotel bookings. This module includes room management, booking management, and customer management. Additionally, they need to implement a REST API for authentication and booking management using JWT.
-
-Extra points will be given for handling booking statuses and adding parameter validation using decorators.
-
-### Instructions
-- Fork the Repository: Fork the provided repository to your personal GitHub account.
-- Clone the Repository: Clone the forked repository to your local development environment.
-- Implement the Features: Complete the following tasks in your local repository.
-- Commit and Push: Commit your changes and push them to your forked repository.
+- Name module: hotel_management
+- Dependencies are used in module:
+  + module: auth_signup
+  + package: jwt
+- Use odoo version 16.0 community edition.
+- Postman collection: send to your email
 
 ### Requirements
 #### 1. Write REST API for Authentication using JWT
-Implement user registration and login endpoints.
-Use JWT for token-based authentication.
 
 ```
 File: controllers/auth_controller.py
 ```
-
-- Register
+- Complete register portal user and return result.
+- Check valid input data before signup.
 ```bash
 curl -X POST http://localhost:8069/api/auth/register \
   -H "Content-Type: application/json" \
@@ -30,23 +25,28 @@ curl -X POST http://localhost:8069/api/auth/register \
     }'
 ```
 
-- Login 
+- Check valid email and password user.
+- Create a sign a new jwt token and return access token for the next request.
 ```bash
 curl -X POST http://localhost:8069/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-        "email": "john@inbox4us.xyz",
-        "password": "password"
+      "email": "john@inbox4us.xyz",
+      "password": "password"
     }'
 ```
 
 #### 2. Write API for Making a Booking
-Implement an endpoint to create a new booking.
 ```
 File: controllers/booking_controller.py
 ```
 
-- Create Booking
+- Complete implement an endpoint to create a new booking.
+- Validate correct access token before process a booking hotel room.
+- Check valid input data before make a booking:
+  + Customer: check valid ID, if not exist create new customer with current user (get via access token).
+  + Hotel Room: check valid ID, if not exist raise a notice.
+  + Check-in, Check-out: check valid format, check available room with request range date.
 ```bash
 curl -X POST http://localhost:8069/api/booking \
   -H "Content-Type: application/json
@@ -58,10 +58,3 @@ curl -X POST http://localhost:8069/api/booking \
     "checkout_date": "2022-01-05"
   }'
 ```
-
-#### 3. Nice to Have (Optional)
-- Handle Booking Status: Implement logic to manage booking statuses (checkin, checkout, booked).
-- Adding Validation for Parameters Using Decorators: Implement parameter validation using decorators to ensure correct data is provided in the API requests.
-- Write postman collection for testing the API.
-- Apply Best Practices: Write clean, maintainable code following industry best practices.
-- Document Each Function: Provide documentation for each function, explaining its purpose, parameters, and return values.
